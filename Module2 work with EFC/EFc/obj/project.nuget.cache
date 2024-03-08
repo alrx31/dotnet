@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "J94vqte/Yei9EDAozEaKibItalkHNk36B8GXEXKO70yuiWK+sIf73fZ35zYSPEqJF5pdCmt4rKov2MfPVaQQ5A==",
+  "dgSpecHash": "KHBqZ034bPP1eaVry9kbxC4yC7MHC7p3EaI1zYVim8a+4Xvy1WsH/rxjb17EfwN7dSUoZ7La2/bijsR6CtxuAw==",
   "success": true,
   "projectFilePath": "D:\\program\\dotnet\\Module2 work with EFC\\EFc\\EFc.csproj",
   "expectedPackageFiles": [
@@ -17,6 +17,7 @@
     "C:\\Users\\usova\\.nuget\\packages\\microsoft.entityframeworkcore.design\\7.0.16\\microsoft.entityframeworkcore.design.7.0.16.nupkg.sha512",
     "C:\\Users\\usova\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\7.0.16\\microsoft.entityframeworkcore.relational.7.0.16.nupkg.sha512",
     "C:\\Users\\usova\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\7.0.16\\microsoft.entityframeworkcore.sqlserver.7.0.16.nupkg.sha512",
+    "C:\\Users\\usova\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\7.0.16\\microsoft.entityframeworkcore.tools.7.0.16.nupkg.sha512",
     "C:\\Users\\usova\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\7.0.0\\microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\usova\\.nuget\\packages\\microsoft.extensions.caching.memory\\7.0.0\\microsoft.extensions.caching.memory.7.0.0.nupkg.sha512",
     "C:\\Users\\usova\\.nuget\\packages\\microsoft.extensions.configuration\\7.0.0\\microsoft.extensions.configuration.7.0.0.nupkg.sha512",
