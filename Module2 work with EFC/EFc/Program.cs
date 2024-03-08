@@ -1,9 +1,23 @@
-﻿class Program
+﻿using EFc.Models;
+using EFc.ControllersT;
+using Microsoft.Extensions.Configuration;
+
+
+using var context = new SchoolDbContext();
+context.Database.EnsureCreated();
+
+
+
+foreach (var student in context.Students)
 {
-    public static void Main(String[] args)
-    {
-        Console.WriteLine("Hello World");
-    }
-    
+    Console.WriteLine(student.FirstName + " " + student.LastName);
+}
+
+Console.WriteLine();
+foreach (var grade in context.Grades)
+{
+    Console.WriteLine(grade.GradeName);
+}
+{
     
 }
