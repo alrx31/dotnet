@@ -18,10 +18,9 @@ public class Product
     public List<Media> Medias { get; set; }
     
     public int CategoryId { get; set; }
-    public Category Category { get; set; }     
-    //public int ProductVariantId { get; set; }
+    public Category Category { get; set; } 
     
-    // Review
+    public List<ProductVariant> ProductVariants { get; set; }
     
     
     public List<Review> Reviews { get; set; }

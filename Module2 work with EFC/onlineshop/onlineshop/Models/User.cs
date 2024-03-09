@@ -21,4 +21,9 @@ public class User
     
     public List<Review> Reviews { get; set; }
     
+    public List<CardItem> CardItems { get; set; }
+    
+    public List<Address> Addresses { get; set; }
+    
+    public List<Order> Orders { get; set; }
 }
