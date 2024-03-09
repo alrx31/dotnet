@@ -67,10 +67,7 @@ namespace onlineshop.Migrations
             modelBuilder.Entity("onlineshop.Models.CardItem", b =>
                 {
                     b.Property<int>("ProductVariantId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ProductVariantId"));
 
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
@@ -136,8 +133,8 @@ namespace onlineshop.Migrations
 
                     b.Property<string>("MediaBytes")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.Property<string>("MediaFileName")
                         .IsRequired()
@@ -162,16 +159,23 @@ namespace onlineshop.Migrations
             modelBuilder.Entity("onlineshop.Models.Order", b =>
                 {
                     b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("OrderId"));
 
                     b.Property<int>("AddressId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<string>("CreatedAt")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
-                    b.Property<int>("OrderStatus")
-                        .HasColumnType("integer");
+                    b.Property<string>("OrderStatus")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<int>("Price")
                         .HasColumnType("integer");
@@ -208,20 +212,19 @@ namespace onlineshop.Migrations
 
             modelBuilder.Entity("onlineshop.Models.OrderTransaction", b =>
                 {
-                    b.Property<int>("OrderId")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("POrderId")
                         .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("OrderId"));
 
                     b.Property<int>("TransactionStatus")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone")
+                    b.Property<string>("UpdatedAt")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
                         .HasColumnName("Transaction Updated At");
 
-                    b.HasKey("OrderId");
+                    b.HasKey("POrderId");
 
                     b.ToTable("OrderTransactions");
                 });
@@ -289,8 +292,7 @@ namespace onlineshop.Migrations
 
                     b.HasIndex("ColorId");
 
-                    b.HasIndex("ProductId")
-                        .IsUnique();
+                    b.HasIndex("ProductId");
 
                     b.HasIndex("SizeId");
 
@@ -444,11 +446,19 @@ namespace onlineshop.Migrations
 
             modelBuilder.Entity("onlineshop.Models.CardItem", b =>
                 {
+                    b.HasOne("onlineshop.Models.ProductVariant", "ProductVariant")
+                        .WithMany("CardItems")
+                        .HasForeignKey("ProductVariantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("onlineshop.Models.User", "User")
                         .WithMany("CardItems")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ProductVariant");
 
                     b.Navigation("User");
                 });
@@ -483,12 +493,6 @@ namespace onlineshop.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("onlineshop.Models.OrderTransaction", "OrderTransaction")
-                        .WithOne("Order")
-                        .HasForeignKey("onlineshop.Models.Order", "OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("onlineshop.Models.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
@@ -496,8 +500,6 @@ namespace onlineshop.Migrations
                         .IsRequired();
 
                     b.Navigation("Address");
-
-                    b.Navigation("OrderTransaction");
 
                     b.Navigation("User");
                 });
@@ -519,6 +521,17 @@ namespace onlineshop.Migrations
                     b.Navigation("Order");
 
                     b.Navigation("ProductVariant");
+                });
+
+            modelBuilder.Entity("onlineshop.Models.OrderTransaction", b =>
+                {
+                    b.HasOne("onlineshop.Models.Order", "Order")
+                        .WithOne("OrderTransactions")
+                        .HasForeignKey("onlineshop.Models.OrderTransaction", "POrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("onlineshop.Models.Product", b =>
@@ -554,19 +567,11 @@ namespace onlineshop.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("onlineshop.Models.CardItem", "CardItem")
-                        .WithOne("ProductVariant")
-                        .HasForeignKey("onlineshop.Models.ProductVariant", "ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("onlineshop.Models.Size", "Size")
                         .WithMany("ProductVariants")
                         .HasForeignKey("SizeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("CardItem");
 
                     b.Navigation("Color");
 
@@ -623,12 +628,6 @@ namespace onlineshop.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("onlineshop.Models.CardItem", b =>
-                {
-                    b.Navigation("ProductVariant")
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("onlineshop.Models.Category", b =>
                 {
                     b.Navigation("Products");
@@ -646,11 +645,8 @@ namespace onlineshop.Migrations
             modelBuilder.Entity("onlineshop.Models.Order", b =>
                 {
                     b.Navigation("OrderItems");
-                });
 
-            modelBuilder.Entity("onlineshop.Models.OrderTransaction", b =>
-                {
-                    b.Navigation("Order")
+                    b.Navigation("OrderTransactions")
                         .IsRequired();
                 });
 
@@ -665,6 +661,8 @@ namespace onlineshop.Migrations
 
             modelBuilder.Entity("onlineshop.Models.ProductVariant", b =>
                 {
+                    b.Navigation("CardItems");
+
                     b.Navigation("OrderItem")
                         .IsRequired();
                 });

@@ -15,6 +15,6 @@ public class Media
     public string MediaFileType { get; set; }
     [MaxLength(50)]
     public string MediaFileName { get; set; }
-    [MaxLength(50)]
+    [MaxLength(500)]
     public string MediaBytes { get; set; }
 }

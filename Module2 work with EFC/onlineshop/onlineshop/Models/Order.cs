@@ -14,12 +14,13 @@ public class Order
     
     public int AddressId { get; set; }
     public Address Address { get; set; }
+    [MaxLength(100)]
+    public string CreatedAt { get; set; }
     
-    public DateTime CreatedAt { get; set; }
+    [MaxLength(50)]
+    public string OrderStatus { get; set; }
     
-    public int OrderStatus { get; set; }
-    
-    public OrderTransaction OrderTransaction { get; set; }
+    public OrderTransaction OrderTransactions { get; set; }
     
     public List<OrderItem> OrderItems { get; set; }
 }

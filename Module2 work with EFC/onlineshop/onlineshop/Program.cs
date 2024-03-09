@@ -7,7 +7,15 @@ var configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", optional:true, reloadOnChange:true)
     .Build();
 
-using (var context = new OnlineShopDbContext(configuration))
+
+
+
+
+using (var context = new OnlineShopDbContext())
 {
-    Console.WriteLine("Database created");
+    
+    Console.WriteLine("Database created");        
+    
+    
+    
 }

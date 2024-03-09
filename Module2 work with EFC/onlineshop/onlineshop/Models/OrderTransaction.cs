@@ -6,11 +6,12 @@ namespace onlineshop.Models;
 public class OrderTransaction
 {
     [Key]
-    public int OrderId { get; set; }
+    public int POrderId { get; set; }
     public Order Order { get; set; }
     
     public int TransactionStatus { get; set; }
     
+    [MaxLength(100)]
     [Column("Transaction Updated At")]
-    public DateTime UpdatedAt { get; set; }
+    public string UpdatedAt { get; set; }
 }

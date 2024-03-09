@@ -23,7 +23,7 @@ public class ProductVariant
     
     // card items
     
-    public CardItem CardItem { get; set; }
+    public List<CardItem> CardItems { get; set; }
     
     public OrderItem OrderItem { get; set; }
 }

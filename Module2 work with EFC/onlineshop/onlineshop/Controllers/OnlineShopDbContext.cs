@@ -10,17 +10,17 @@ public class OnlineShopDbContext: DbContext
     
     
     //create configuration
-    private IConfiguration _configuration;
+    /*private IConfiguration _configuration;
     public OnlineShopDbContext(IConfiguration configuration)
     {
         _configuration = configuration;
-    }
+    }*/
     
     
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql(_configuration.GetConnectionString("DefaultConnection"));
+        optionsBuilder.UseNpgsql("Host=localhost;Database=onlineshop;Username=alex;Password=123456");
     }
     
     
@@ -65,12 +65,13 @@ public class OnlineShopDbContext: DbContext
             .WithMany(u => u.Reviews)
             .HasForeignKey(r => r.UserId);
         
-        // one to one relationship between ProductVariant and CardItem
+        // one to many relationship between ProductVariant and CardItem
         
         modelBuilder.Entity<CardItem>()
             .HasOne<ProductVariant>(ci => ci.ProductVariant)
-            .WithOne(pv => pv.CardItem)
-            .HasForeignKey<ProductVariant>(pv => pv.ProductId);
+            .WithMany(pv => pv.CardItems)
+            .HasForeignKey(ci => ci.ProductVariantId);
+        
         
         // one to many relationship between Product and ProductVariant
         
@@ -123,10 +124,10 @@ public class OnlineShopDbContext: DbContext
         
         //  one to one relationship between Order and OrderTransaction
         
-        modelBuilder.Entity<OrderTransaction>()
-            .HasOne<Order>(ot => ot.Order)
-            .WithOne(o => o.OrderTransaction)
-            .HasForeignKey<Order>(o => o.OrderId);
+        modelBuilder.Entity<Order>()
+            .HasOne<OrderTransaction>(o => o.OrderTransactions)
+            .WithOne(ot => ot.Order)
+            .HasForeignKey<OrderTransaction>(ot => ot.POrderId);
         
         // one to many relationship between OrderItem and Order
 
