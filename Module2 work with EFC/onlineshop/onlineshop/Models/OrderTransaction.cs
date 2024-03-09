@@ -11,6 +11,6 @@ public class OrderTransaction
     
     public int TransactionStatus { get; set; }
     
-    [Column("Transaction Updated At", TypeName = "dataTime")]
+    [Column("Transaction Updated At")]
     public DateTime UpdatedAt { get; set; }
 }

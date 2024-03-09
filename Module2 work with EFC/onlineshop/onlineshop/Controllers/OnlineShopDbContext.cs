@@ -10,17 +10,17 @@ public class OnlineShopDbContext: DbContext
     
     
     // create configuration
-    private IConfiguration _configuration;
+    /*private IConfiguration _configuration;
     public OnlineShopDbContext(IConfiguration configuration)
     {
         _configuration = configuration;
-    }
+    }*/
     
     
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql(_configuration.GetConnectionString("DefaultConnection"));
+        optionsBuilder.UseNpgsql("Host=localhost;Database=onlineshop;Username=alex;Password=123456");
     }
     
     
